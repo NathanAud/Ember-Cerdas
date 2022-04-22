@@ -16,7 +16,7 @@ void setup()
 {
     Pin inputPin[]{tombol,echo,kenop};
     for(Pin pin:inputPin) pinMode(pin, INPUT_PULLUP);
-    Pin outputPin[]{buzzer,trig};
+    Pin outputPin[]{buzzer,trig,(Pin)LED_BUILTIN};
     for(Pin pin:outputPin) pinMode(pin, OUTPUT);
 
     #ifdef DEBUG
@@ -37,14 +37,14 @@ void loop()
 
     if(digitalRead(tombol) == LOW) updateMaxDistance();
     targetDistancePulseLength = (((analogRead(kenop)-analogInputOffset)/maxAnalogInput) * (maxDistancePulseLength-closestDistancePulseLength)) + closestDistancePulseLength;
-    if(checkDistance() <= targetDistancePulseLength) digitalWrite(buzzer, HIGH);
-    else digitalWrite(buzzer, LOW);
+    if(checkDistance() <= targetDistancePulseLength) digitalWrite(LED_BUILTIN, HIGH);
+    else digitalWrite(LED_BUILTIN, LOW);
 }
 
 void updateMaxDistance(){
     maxDistancePulseLength = checkDistance();
     for(int i=0; i<4; i++){
-        digitalWrite(buzzer, !digitalRead(buzzer));
+        digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
         delay(250);
     }
 }
