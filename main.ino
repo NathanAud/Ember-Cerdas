@@ -45,7 +45,7 @@ void updateMaxDistance(){
     maxDistancePulseLength = checkDistance();
     for(int i=0; i<4; i++){
         digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
-        delay(250);
+        delay(125);
     }
 }
 
