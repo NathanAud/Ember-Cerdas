@@ -28,7 +28,6 @@ void setup()
 void loop()
 {
     #ifdef DEBUG
-    delay(1000);
     Serial.print((analogRead(kenop)-analogInputOffset)/maxAnalogInput);
     Serial.print('\t');
     Serial.print(targetDistancePulseLength);
@@ -40,6 +39,7 @@ void loop()
     targetDistancePulseLength = (((analogRead(kenop)-analogInputOffset)/maxAnalogInput) * (maxDistancePulseLength-closestDistancePulseLength)) + closestDistancePulseLength;
     if(checkDistance() <= targetDistancePulseLength) digitalWrite(buzzer, HIGH);
     else digitalWrite(buzzer, LOW);
+    delay(500);
 }
 
 void updateMaxDistance(){
