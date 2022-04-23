@@ -45,7 +45,7 @@ void updateMaxDistance(){
     maxDistancePulseLength = checkDistance();
     for(int i=0; i<4; i++){
         digitalWrite(buzzer, !digitalRead(buzzer));
-        delay(250);
+        delay(125);
     }
 }
 
