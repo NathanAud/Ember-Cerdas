@@ -42,12 +42,16 @@ void loop()
     delay(500);
 }
 
+void beep(){
+    digitalWrite(buzzer, HIGH);
+    delay(125);
+    digitalWrite(buzzer, LOW);
+    delay(125);
+}
+
 void updateMaxDistance(){
     maxDistancePulseLength = checkDistance();
-    for(int i=0; i<4; i++){
-        digitalWrite(buzzer, !digitalRead(buzzer));
-        delay(125);
-    }
+    beep(); beep();
 }
 
 double checkDistance(){
