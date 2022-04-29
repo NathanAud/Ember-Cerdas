@@ -54,6 +54,10 @@ void updateMaxDistance(){
     beep(); beep();
 }
 
+void triggeredBeep(){
+    beep(); beep(); beep(); beep();
+}
+
 double checkDistance(){
     digitalWrite(trig, HIGH);
     delayMicroseconds(10);
