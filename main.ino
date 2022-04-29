@@ -41,20 +41,20 @@ void loop()
     delay(500);
 }
 
-void beep(){
+void beep(int halfPeriod){
     digitalWrite(buzzer, HIGH);
-    delay(125);
+    delay(halfPeriod);
     digitalWrite(buzzer, LOW);
-    delay(125);
+    delay(halfPeriod);
 }
 
 void updateMaxDistance(){
     maxDistancePulseLength = checkDistance();
-    beep(); beep();
+    beep(125); beep(125);
 }
 
 void triggeredBeep(){
-    beep(); beep(); beep(); beep();
+    beep(50); beep(50); beep(50); beep(50);
 }
 
 double checkDistance(){
