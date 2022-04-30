@@ -36,8 +36,9 @@ void loop()
     #endif
 
     if(digitalRead(tombol) == LOW) updateMaxDistance();
-    targetDistancePulseLength = (((analogRead(kenop)-analogInputOffset)/maxAnalogInput) * (maxDistancePulseLength-closestDistancePulseLength)) + closestDistancePulseLength;
-    if(checkDistance() <= targetDistancePulseLength) triggeredBeep();
+    if((checkDistance()-closestDistancePulseLength) * maxAnalogInput <= 
+            (analogRead(kenop)-analogInputOffset) * (maxDistancePulseLength-closestDistancePulseLength))
+                triggeredBeep();
     delay(500);
 }
 
