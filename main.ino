@@ -1,4 +1,5 @@
 // #define DEBUG
+#define DITEKAN LOW
 
 enum Pin{
     buzzer=LED_BUILTIN,
@@ -35,7 +36,7 @@ void loop()
     Serial.println(maxDistancePulseLength);
     #endif
 
-    if(digitalRead(tombol) == LOW) updateMaxDistance();
+    if(digitalRead(tombol) == DITEKAN) updateMaxDistance();
     if((checkDistance()-closestDistancePulseLength) * maxAnalogInput <= 
             (analogRead(kenop)-analogInputOffset) * (maxDistancePulseLength-closestDistancePulseLength))
                 triggeredBeep();
