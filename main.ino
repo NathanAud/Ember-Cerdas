@@ -15,10 +15,11 @@ unsigned long targetDistancePulseLength;
 
 void setup()
 {
-    Pin inputPin[]{tombol,echo,kenop};
-    for(Pin pin:inputPin) pinMode(pin, INPUT_PULLUP);
-    Pin outputPin[]{buzzer,trig};
-    for(Pin pin:outputPin) pinMode(pin, OUTPUT);
+    pinMode(tombol,INPUT_PULLUP);
+    pinMode(echo,INPUT_PULLUP);
+    pinMode(kenop,INPUT_PULLUP);
+    pinMode(buzzer,OUTPUT);
+    pinMode(trig,OUTPUT);
 
     #ifdef DEBUG
     Serial.begin(9600);
