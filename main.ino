@@ -28,9 +28,9 @@ void setup()
 void loop()
 {
     #ifdef DEBUG
-    Serial.print((analogRead(kenop)-analogInputOffset)/maxAnalogInput);
+    Serial.print((double)(analogRead(kenop)-analogInputOffset)/maxAnalogInput);
     Serial.print('\t');
-    Serial.print((((analogRead(kenop)-analogInputOffset)/maxAnalogInput) * (maxDistancePulseLength-closestDistancePulseLength))+closestDistancePulseLength); //targetDistancePulseLength
+    Serial.print((((double)(analogRead(kenop)-analogInputOffset)/maxAnalogInput) * (maxDistancePulseLength-closestDistancePulseLength))+closestDistancePulseLength); //targetDistancePulseLength
     Serial.print('\t');
     Serial.println(maxDistancePulseLength);
     #endif
