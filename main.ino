@@ -41,7 +41,7 @@ void loop()
     delay(500);
 }
 
-void beep(int halfPeriod){
+void beep(unsigned long halfPeriod){
     digitalWrite(buzzer, HIGH);
     delay(halfPeriod);
     digitalWrite(buzzer, LOW);
