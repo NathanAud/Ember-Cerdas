@@ -7,11 +7,11 @@ enum Pin{
     kenop=A5
 };
 
-double maxDistancePulseLength = 19533;
-constexpr double closestDistancePulseLength = 594;
-constexpr double analogInputOffset = 14;
-constexpr double maxAnalogInput = 1023 - analogInputOffset;
-double targetDistancePulseLength;
+unsigned long maxDistancePulseLength = 19533;
+constexpr unsigned long closestDistancePulseLength = 594;
+constexpr unsigned long analogInputOffset = 14;
+constexpr unsigned long maxAnalogInput = 1023 - analogInputOffset;
+unsigned long targetDistancePulseLength;
 
 void setup()
 {
@@ -58,7 +58,7 @@ void triggeredBeep(){
     beep(50); beep(50); beep(50); beep(50);
 }
 
-double checkDistance(){
+unsigned long checkDistance(){
     digitalWrite(trig, HIGH);
     delayMicroseconds(10);
     digitalWrite(trig, LOW);
