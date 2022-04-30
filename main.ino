@@ -11,7 +11,6 @@ unsigned long maxDistancePulseLength = 19533;
 constexpr unsigned long closestDistancePulseLength = 594;
 constexpr unsigned long analogInputOffset = 14;
 constexpr unsigned long maxAnalogInput = 1023 - analogInputOffset;
-unsigned long targetDistancePulseLength;
 
 void setup()
 {
@@ -31,7 +30,7 @@ void loop()
     #ifdef DEBUG
     Serial.print((analogRead(kenop)-analogInputOffset)/maxAnalogInput);
     Serial.print('\t');
-    Serial.print(targetDistancePulseLength);
+    Serial.print((((analogRead(kenop)-analogInputOffset)/maxAnalogInput) * (maxDistancePulseLength-closestDistancePulseLength))+closestDistancePulseLength); //targetDistancePulseLength
     Serial.print('\t');
     Serial.println(maxDistancePulseLength);
     #endif
