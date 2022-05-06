@@ -8,7 +8,7 @@ enum Pin{
     kenop=A5
 };
 
-unsigned long maxDistancePulseLength = 19533;
+unsigned long maxDistancePulseLength = 0;
 constexpr unsigned long closestDistancePulseLength = 594;
 constexpr unsigned long analogInputOffset = 14;
 constexpr unsigned long maxAnalogInput = 1023 - analogInputOffset;
@@ -20,6 +20,9 @@ void setup()
     pinMode(kenop,INPUT_PULLUP);
     pinMode(buzzer,OUTPUT);
     pinMode(trig,OUTPUT);
+
+    while(digitalRead(tombol) != DITEKAN);
+    updateMaxDistance();
 
     #ifdef DEBUG
     Serial.begin(9600);
