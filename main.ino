@@ -33,6 +33,8 @@ void loop()
     Serial.print('\t');
     Serial.print((((double)(analogRead(kenop)-analogInputOffset)/maxAnalogInput) * (maxDistancePulseLength-closestDistancePulseLength))+closestDistancePulseLength); //targetDistancePulseLength
     Serial.print('\t');
+    Serial.print(checkDistance());
+    Serial.print('\t');
     Serial.println(maxDistancePulseLength);
     #endif
 
