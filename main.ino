@@ -63,6 +63,6 @@ unsigned long checkDistance(){
     digitalWrite(trig, HIGH);
     delayMicroseconds(10);
     digitalWrite(trig, LOW);
-    
-    return pulseIn(echo, HIGH);
+    auto pulse = pulseIn(echo, HIGH);
+    return max(pulse,closestDistancePulseLength);
 }
