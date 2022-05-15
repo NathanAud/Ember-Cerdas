@@ -9,7 +9,7 @@ enum Pin{
 };
 
 unsigned long maxDistancePulseLength = 0;
-constexpr unsigned long closestDistancePulseLength = 594;
+constexpr unsigned long closestDistancePulseLength = 416;
 constexpr unsigned long analogInputOffset = 14;
 constexpr unsigned long maxAnalogInput = 1023 - analogInputOffset;
 
