@@ -1,4 +1,5 @@
 // #define DEBUG
+#define DITEKAN LOW
 
 enum Pin{
     buzzer=2,tombol,
@@ -6,18 +7,21 @@ enum Pin{
     kenop=A5
 };
 
-double maxDistancePulseLength = 19533;
-constexpr double closestDistancePulseLength = 594;
-constexpr double analogInputOffset = 14;
-constexpr double maxAnalogInput = 1023 - analogInputOffset;
-double targetDistancePulseLength;
+unsigned long maxDistancePulseLength = 0;
+constexpr unsigned long closestDistancePulseLength = 416;
+constexpr unsigned long analogInputOffset = 14;
+constexpr unsigned long maxAnalogInput = 1023 - analogInputOffset;
 
 void setup()
 {
-    Pin inputPin[]{tombol,echo,kenop};
-    for(Pin pin:inputPin) pinMode(pin, INPUT_PULLUP);
-    Pin outputPin[]{buzzer,trig};
-    for(Pin pin:outputPin) pinMode(pin, OUTPUT);
+    pinMode(tombol,INPUT_PULLUP);
+    pinMode(echo,INPUT_PULLUP);
+    pinMode(kenop,INPUT_PULLUP);
+    pinMode(buzzer,OUTPUT);
+    pinMode(trig,OUTPUT);
+
+    while(digitalRead(tombol) != DITEKAN);
+    updateMaxDistance();
 
     #ifdef DEBUG
     Serial.begin(9600);
@@ -27,32 +31,42 @@ void setup()
 void loop()
 {
     #ifdef DEBUG
-    delay(1000);
-    Serial.print((analogRead(kenop)-analogInputOffset)/maxAnalogInput);
+    Serial.print((double)(analogRead(kenop)-analogInputOffset)/maxAnalogInput);
     Serial.print('\t');
-    Serial.print(targetDistancePulseLength);
+    Serial.print((((double)(analogRead(kenop)-analogInputOffset)/maxAnalogInput) * (maxDistancePulseLength-closestDistancePulseLength))+closestDistancePulseLength); //targetDistancePulseLength
+    Serial.print('\t');
+    Serial.print(checkDistance());
     Serial.print('\t');
     Serial.println(maxDistancePulseLength);
     #endif
 
-    if(digitalRead(tombol) == LOW) updateMaxDistance();
-    targetDistancePulseLength = (((analogRead(kenop)-analogInputOffset)/maxAnalogInput) * (maxDistancePulseLength-closestDistancePulseLength)) + closestDistancePulseLength;
-    if(checkDistance() <= targetDistancePulseLength) digitalWrite(buzzer, HIGH);
-    else digitalWrite(buzzer, LOW);
+    if(digitalRead(tombol) == DITEKAN) updateMaxDistance();
+    if((checkDistance()-closestDistancePulseLength) * maxAnalogInput <= 
+            (analogRead(kenop)-analogInputOffset) * (maxDistancePulseLength-closestDistancePulseLength))
+                triggeredBeep();
+    delay(500);
+}
+
+void beep(unsigned long halfPeriod){
+    digitalWrite(buzzer, HIGH);
+    delay(halfPeriod);
+    digitalWrite(buzzer, LOW);
+    delay(halfPeriod);
 }
 
 void updateMaxDistance(){
     maxDistancePulseLength = checkDistance();
-    for(int i=0; i<4; i++){
-        digitalWrite(buzzer, !digitalRead(buzzer));
-        delay(125);
-    }
+    beep(125); beep(125);
 }
 
-double checkDistance(){
+void triggeredBeep(){
+    beep(50); beep(50); beep(50); beep(50);
+}
+
+unsigned long checkDistance(){
     digitalWrite(trig, HIGH);
     delayMicroseconds(10);
     digitalWrite(trig, LOW);
-    
-    return pulseIn(echo, HIGH);
+    auto pulse = pulseIn(echo, HIGH);
+    return max(pulse,closestDistancePulseLength);
 }
