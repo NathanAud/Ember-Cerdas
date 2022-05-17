@@ -3,7 +3,7 @@
 
 enum Pin{
     buzzer=2,tombol,
-    echo=8,trig,
+    trig=8,echo,
     kenop=A5
 };
 
